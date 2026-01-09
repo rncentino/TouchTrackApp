@@ -15,7 +15,7 @@ namespace TouchTrackApp
         public dashboard()
         {
             InitializeComponent();
-            //LoadForm(new HomeForm());
+            LoadForm(new HomeForm());
 
             SetupNavButton(btnHome);
             SetupNavButton(btnAttendance);

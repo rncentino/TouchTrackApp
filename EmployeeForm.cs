@@ -31,5 +31,11 @@ namespace TouchTrackApp
                 Application.Exit();
             }
         }
+
+        private void registrationBtn_Click(object sender, EventArgs e)
+        {
+            EmployeeRegistrationForm registerForm = new EmployeeRegistrationForm();
+            registerForm.ShowDialog();
+        }
     }
 }

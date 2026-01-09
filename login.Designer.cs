@@ -37,6 +37,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.closebtn = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -46,7 +47,6 @@
             this.TouchTrackAppBtn = new System.Windows.Forms.Button();
             this.loginbtn = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.closebtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -142,17 +142,34 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.panel2.Controls.Add(this.closebtn);
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.TouchTrackAppBtn);
             this.panel2.Controls.Add(this.loginbtn);
             this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.closebtn);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(300, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(430, 530);
             this.panel2.TabIndex = 2;
+            // 
+            // closebtn
+            // 
+            this.closebtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.closebtn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("closebtn.BackgroundImage")));
+            this.closebtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.closebtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.closebtn.FlatAppearance.BorderSize = 0;
+            this.closebtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.closebtn.Font = new System.Drawing.Font("Verdana", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.closebtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.closebtn.Location = new System.Drawing.Point(410, 0);
+            this.closebtn.Name = "closebtn";
+            this.closebtn.Size = new System.Drawing.Size(20, 20);
+            this.closebtn.TabIndex = 103;
+            this.closebtn.UseVisualStyleBackColor = false;
+            this.closebtn.Click += new System.EventHandler(this.closebtn_Click);
             // 
             // panel4
             // 
@@ -264,21 +281,6 @@
             this.label6.TabIndex = 2;
             this.label6.Text = "Login to your account";
             // 
-            // closebtn
-            // 
-            this.closebtn.FlatAppearance.BorderSize = 0;
-            this.closebtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.closebtn.Font = new System.Drawing.Font("Verdana", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.closebtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
-            this.closebtn.Location = new System.Drawing.Point(390, 0);
-            this.closebtn.Name = "closebtn";
-            this.closebtn.Size = new System.Drawing.Size(40, 40);
-            this.closebtn.TabIndex = 99;
-            this.closebtn.TabStop = false;
-            this.closebtn.Text = "X";
-            this.closebtn.UseVisualStyleBackColor = true;
-            this.closebtn.Click += new System.EventHandler(this.closebtn_Click);
-            // 
             // login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -315,7 +317,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button closebtn;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button loginbtn;
         private System.Windows.Forms.Button TouchTrackAppBtn;
@@ -325,6 +326,7 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Button closebtn;
     }
 }
 

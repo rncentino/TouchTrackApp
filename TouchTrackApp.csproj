@@ -33,6 +33,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DPFPDevNET">
+      <HintPath>D:\freelance\dll\DPFPDevNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPEngNET">
+      <HintPath>D:\freelance\dll\DPFPEngNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPGuiNET">
+      <HintPath>D:\freelance\dll\DPFPGuiNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPShrNET">
+      <HintPath>D:\freelance\dll\DPFPShrNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPVerNET">
+      <HintPath>D:\freelance\dll\DPFPVerNET.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -65,6 +80,12 @@
     <Compile Include="EmployeeForm.Designer.cs">
       <DependentUpon>EmployeeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="EmployeeRegistrationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmployeeRegistrationForm.Designer.cs">
+      <DependentUpon>EmployeeRegistrationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="HomeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +114,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EmployeeForm.resx">
       <DependentUpon>EmployeeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmployeeRegistrationForm.resx">
+      <DependentUpon>EmployeeRegistrationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HomeForm.resx">
       <DependentUpon>HomeForm.cs</DependentUpon>
