@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 namespace TouchTrackApp
 {
+    delegate void Function();
+
     public partial class EmployeeForm : Form
     {
         public EmployeeForm()

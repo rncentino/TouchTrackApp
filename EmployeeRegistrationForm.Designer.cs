@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeeRegistrationForm));
             this.closebtn = new System.Windows.Forms.Button();
             this.fImage = new System.Windows.Forms.PictureBox();
@@ -37,7 +38,7 @@
             this.Statuslabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtEmployeeID = new System.Windows.Forms.TextBox();
+            this.txtEmployeeNumber = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.txtLastName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -62,6 +63,8 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.testbtn = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.fImage)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -139,6 +142,7 @@
             this.startScan.TabIndex = 107;
             this.startScan.Text = "Start Scan";
             this.startScan.UseVisualStyleBackColor = false;
+            this.startScan.Click += new System.EventHandler(this.startScan_Click);
             // 
             // Statuslabel
             // 
@@ -154,7 +158,7 @@
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.txtEmployeeID);
+            this.panel1.Controls.Add(this.txtEmployeeNumber);
             this.panel1.Location = new System.Drawing.Point(31, 63);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(400, 31);
@@ -173,18 +177,18 @@
             this.label1.Text = "Employee ID";
             this.label1.Click += new System.EventHandler(this.focusEmployeeID);
             // 
-            // txtEmployeeID
+            // txtEmployeeNumber
             // 
-            this.txtEmployeeID.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.txtEmployeeID.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtEmployeeID.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmployeeID.ForeColor = System.Drawing.Color.White;
-            this.txtEmployeeID.Location = new System.Drawing.Point(120, 7);
-            this.txtEmployeeID.Name = "txtEmployeeID";
-            this.txtEmployeeID.Size = new System.Drawing.Size(289, 16);
-            this.txtEmployeeID.TabIndex = 2;
-            this.txtEmployeeID.TextChanged += new System.EventHandler(this.txtEmployeeID_TextChanged);
-            this.txtEmployeeID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtEmployeeID_KeyPress);
+            this.txtEmployeeNumber.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.txtEmployeeNumber.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtEmployeeNumber.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmployeeNumber.ForeColor = System.Drawing.Color.White;
+            this.txtEmployeeNumber.Location = new System.Drawing.Point(120, 7);
+            this.txtEmployeeNumber.Name = "txtEmployeeNumber";
+            this.txtEmployeeNumber.Size = new System.Drawing.Size(289, 16);
+            this.txtEmployeeNumber.TabIndex = 2;
+            this.txtEmployeeNumber.TextChanged += new System.EventHandler(this.txtEmployeeID_TextChanged);
+            this.txtEmployeeNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtEmployeeID_KeyPress);
             // 
             // panel2
             // 
@@ -494,6 +498,27 @@
             this.panel9.Size = new System.Drawing.Size(428, 212);
             this.panel9.TabIndex = 118;
             // 
+            // testbtn
+            // 
+            this.testbtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(252)))), ((int)(((byte)(132)))));
+            this.testbtn.FlatAppearance.BorderSize = 0;
+            this.testbtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(169)))), ((int)(((byte)(92)))));
+            this.testbtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(169)))), ((int)(((byte)(92)))));
+            this.testbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.testbtn.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
+            this.testbtn.ForeColor = System.Drawing.Color.White;
+            this.testbtn.Location = new System.Drawing.Point(278, 445);
+            this.testbtn.Name = "testbtn";
+            this.testbtn.Size = new System.Drawing.Size(150, 38);
+            this.testbtn.TabIndex = 119;
+            this.testbtn.Text = "TEST SCHED";
+            this.testbtn.UseVisualStyleBackColor = false;
+            this.testbtn.Click += new System.EventHandler(this.testbtn_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // EmployeeRegistrationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -501,6 +526,7 @@
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(620, 500);
+            this.Controls.Add(this.testbtn);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panel6);
@@ -519,6 +545,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "EmployeeRegistrationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EmployeeRegistrationForm_FormClosing);
+            this.Load += new System.EventHandler(this.EmployeeRegistrationForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.fImage)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -551,7 +579,7 @@
         private System.Windows.Forms.Label Statuslabel;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtEmployeeID;
+        private System.Windows.Forms.TextBox txtEmployeeNumber;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtLastName;
@@ -576,5 +604,7 @@
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Button testbtn;
+        private System.Windows.Forms.Timer timer1;
     }
 }

@@ -1,8 +1,15 @@
-﻿using System;
+﻿using DPFP;
+using DPFP.Capture;
+using DPFP.Processing;
+using DPFP.Verification;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,23 +17,43 @@ using System.Windows.Forms;
 
 namespace TouchTrackApp
 {
-    public partial class EmployeeRegistrationForm : Form
+    public partial class EmployeeRegistrationForm : Form, DPFP.Capture.EventHandler
     {
-        public EmployeeRegistrationForm()
+        private DPFP.Capture.Capture Capturer;
+
+        public string EmployeeNumber = "";
+        public string LastName = "";
+        public string FirstName = "";
+        public string Role = "";
+
+        public class ScheduleItem
         {
-            InitializeComponent();
-            SetupScheduleGrid();
-
-            timeIn.Format = DateTimePickerFormat.Custom;
-            timeIn.CustomFormat = "hh:mm tt";
-            timeIn.ShowUpDown = true;
-
-            timeOut.Format = DateTimePickerFormat.Custom;
-            timeOut.CustomFormat = "hh:mm tt";
-            timeOut.ShowUpDown = true;
-
-            startScan.Visible = false;
+            public string DayOfWeek { get; set; }
+            public TimeSpan TimeIn { get; set; }
+            public TimeSpan TimeOut { get; set; }
         }
+
+        private List<ScheduleItem> GetSchedulesForDatabase()
+        {
+            List<ScheduleItem> schedules = new List<ScheduleItem>();
+
+            foreach (DataGridViewRow row in schedPreview.Rows)
+            {
+                if (row.IsNewRow)
+                    continue;
+
+                schedules.Add(new ScheduleItem
+                {
+                    DayOfWeek = Convert.ToString(row.Cells["DayOfWeek"].Value),
+                    TimeIn = row.Cells["TimeIn"].Tag is TimeSpan ti ? ti : TimeSpan.Zero,
+                    TimeOut = row.Cells["TimeOut"].Tag is TimeSpan to ? to : TimeSpan.Zero
+                });
+            }
+
+            return schedules;
+        }
+
+
 
         private void SetupScheduleGrid()
         {
@@ -48,21 +75,21 @@ namespace TouchTrackApp
 
         private void addSchedBtn_Click(object sender, EventArgs e)
         {
-            // 1️⃣ Validate day selection
+            // Validate day selection
             if (cmbDayOfWeek.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select a day.");
                 return;
             }
 
-            // 2️⃣ Validate time range
+            // Validate time range
             if (timeOut.Value <= timeIn.Value)
             {
                 MessageBox.Show("Time Out must be later than Time In.");
                 return;
             }
 
-            // 3️⃣ Check for overlapping schedules (same day)
+            // Check for overlapping schedules (same day)
             foreach (DataGridViewRow row in schedPreview.Rows)
             {
                 if (row.IsNewRow)
@@ -90,19 +117,19 @@ namespace TouchTrackApp
                 }
             }
 
-            // 4️⃣ ADD ROW TO DATAGRIDVIEW (TEMP STORAGE)
+            // ADD ROW TO DATAGRIDVIEW (TEMP STORAGE)
             schedPreview.Rows.Add(
                 cmbDayOfWeek.Text,
                 timeIn.Value.ToShortTimeString(),
                 timeOut.Value.ToShortTimeString()
             );
 
-            // 5️⃣ STORE REAL TIME VALUES IN TAG (IMPORTANT)
+            // STORE REAL TIME VALUES IN TAG (IMPORTANT)
             int lastRow = schedPreview.Rows.Count - 1;
             schedPreview.Rows[lastRow].Cells["TimeIn"].Tag = timeIn.Value.TimeOfDay;
             schedPreview.Rows[lastRow].Cells["TimeOut"].Tag = timeOut.Value.TimeOfDay;
 
-            // 6️⃣ OPTIONAL UX CLEANUP
+            // OPTIONAL UX CLEANUP
             cmbDayOfWeek.SelectedIndex = -1;
             timeIn.Value = DateTime.Today;
             timeOut.Value = DateTime.Today;
@@ -132,7 +159,7 @@ namespace TouchTrackApp
         private void validateScan()
         {
             bool isReady =
-       !string.IsNullOrWhiteSpace(txtEmployeeID.Text) &&
+       !string.IsNullOrWhiteSpace(txtEmployeeNumber.Text) &&
        !string.IsNullOrWhiteSpace(txtFirstName.Text) &&
        !string.IsNullOrWhiteSpace(txtLastName.Text) &&
        cmbRole.SelectedIndex != -1 &&
@@ -143,12 +170,39 @@ namespace TouchTrackApp
 
         private void closebtn_Click(object sender, EventArgs e)
         {
+            Stop();
             Close();
+        }
+
+        private void testbtn_Click(object sender, EventArgs e)
+        {
+            List<ScheduleItem> schedules = GetSchedulesForDatabase();
+
+            MessageBox.Show(
+                $"Schedules collected: {schedules.Count}"
+            );
+        }
+
+        public EmployeeRegistrationForm()
+        {
+            InitializeComponent();
+
+            SetupScheduleGrid();
+
+            timeIn.Format = DateTimePickerFormat.Custom;
+            timeIn.CustomFormat = "hh:mm tt";
+            timeIn.ShowUpDown = true;
+
+            timeOut.Format = DateTimePickerFormat.Custom;
+            timeOut.CustomFormat = "hh:mm tt";
+            timeOut.ShowUpDown = true;
+
+            startScan.Visible = false;
         }
 
         private void focusEmployeeID(object sender, EventArgs e)
         {
-            txtEmployeeID.Focus();
+            txtEmployeeNumber.Focus();
         }
 
         private void focusLastName(object sender, EventArgs e)
@@ -197,6 +251,217 @@ namespace TouchTrackApp
             {
                 e.Handled = true; // block input
             }
+        }
+
+
+        protected void SetEmployeeNumber(string value)
+        {
+            this.Invoke(new Function(delegate
+            {
+                txtEmployeeNumber.Text = value;
+            }));
+        }
+
+        protected void SetLastName(string value)
+        {
+            this.Invoke(new Function(delegate
+            {
+                txtLastName.Text = value;
+            }));
+        }
+
+        protected void SetFirstName(string value)
+        {
+            this.Invoke(new Function(delegate
+            {
+                txtFirstName.Text = value;
+            }));
+        }
+
+        protected void SetRole(string value)
+        {
+            this.Invoke(new Function(delegate
+            {
+                cmbRole.Text = value;
+            }));
+        }
+
+        protected void SetPrompt(string prompt)
+        {
+            this.Invoke(new Function(delegate
+            {
+                Prompt.Text = prompt;
+            }));
+        }
+
+        protected void SetStatus(string status)
+        {
+            this.Invoke(new Function(delegate
+            {
+                Statuslabel.Text = status;
+            }));
+        }
+
+        private void DrawPicture(Bitmap bitmap)
+        {
+            this.Invoke(new Function(delegate ()
+            {
+                fImage.Image = new Bitmap(bitmap, fImage.Size);
+            }));
+        }
+
+        protected virtual void Init()
+        {
+            try
+            {
+                Capturer = new DPFP.Capture.Capture();			// Create a capture operation.
+                if (null != Capturer)
+                    Capturer.EventHandler = this;					// Subscribe for capturing events.
+                else
+                    SetPrompt("Can't initiate capture operation!");
+            }
+            catch
+            {
+                MessageBox.Show("Can't initiate capture operation!");
+            }
+        }
+
+        protected virtual void Process(DPFP.Sample Sample)
+        {
+            // Draw fingerprint sample image.
+            DrawPicture(ConvertSampleToBitmap(Sample));
+        }
+
+        protected Bitmap ConvertSampleToBitmap(DPFP.Sample Sample)
+        {
+            DPFP.Capture.SampleConversion Convertor = new DPFP.Capture.SampleConversion();
+            Bitmap bitmap = null;
+            Convertor.ConvertToPicture(Sample, ref bitmap);
+            return bitmap;
+        }
+
+        protected void Start()
+        {
+            if (null != Capturer)
+            {
+                try
+                {
+                    Capturer.StartCapture();
+                    SetPrompt("Using the fingerprint reader, scan your fingerprint");
+                }
+                catch
+                {
+                    SetPrompt("Can't initiate capture");
+                }
+            }
+        }
+
+        protected void Stop()
+        {
+            if (null != Capturer)
+            {
+                try
+                {
+                    Capturer.StopCapture();
+                    timer1.Dispose();
+                }
+                catch
+                {
+                    SetPrompt("Can't terminate capture");
+                }
+            }
+        }
+
+
+        protected void MakeReport(string message)
+        {
+            this.Invoke(new Function(delegate ()
+            {
+                StatusText.AppendText(message + "\r\n");
+            }));
+        }
+
+        protected DPFP.FeatureSet ExtractFeatures(DPFP.Sample Sample, DPFP.Processing.DataPurpose Purpose)
+        {
+            DPFP.Processing.FeatureExtraction Extractor = new DPFP.Processing.FeatureExtraction();
+            DPFP.Capture.CaptureFeedback feedback = DPFP.Capture.CaptureFeedback.None;
+            DPFP.FeatureSet features = new DPFP.FeatureSet();
+            Extractor.CreateFeatureSet(Sample, Purpose, ref feedback, ref features);
+            if (feedback == DPFP.Capture.CaptureFeedback.Good)
+                return features;
+            else
+                return null;
+        }
+
+        public void OnComplete(object Capture, string ReaderSerialNumber, Sample Sample)
+        {
+            MakeReport("The fingerprint sample was captured");
+            SetPrompt("Scan the same fingerprint again");
+            Process(Sample);
+        }
+
+        public void OnFingerGone(object Capture, string ReaderSerialNumber)
+        {
+            MakeReport("The finger was removed from the fingerprint reader");
+        }
+
+        public void OnFingerTouch(object Capture, string ReaderSerialNumber)
+        {
+            MakeReport("The fingerprint reader was touched");
+        }
+
+        public void OnReaderConnect(object Capture, string ReaderSerialNumber)
+        {
+            MakeReport("The fingerprint reader was connected");
+        }
+
+        public void OnReaderDisconnect(object Capture, string ReaderSerialNumber)
+        {
+            MakeReport("The fingerprint reader was disconnected");
+        }
+
+        public void OnSampleQuality(object Capture, string ReaderSerialNumber, CaptureFeedback CaptureFeedback)
+        {
+            if (CaptureFeedback == CaptureFeedback.Good)
+                MakeReport("The quality of the fingerprint sample is good");
+            else
+                MakeReport("The quality of the fingerprint sample is poor");
+        }
+
+        private void startScan_Click(object sender, EventArgs e)
+        {
+            timer1.Interval = 1000;
+            timer1.Start();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            Start();
+        }
+
+        private void EmployeeRegistrationForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Stop();
+        }
+
+        private void EmployeeRegistrationForm_Load(object sender, EventArgs e)
+        {
+            Init();
+        }
+
+        public void ClearFields()
+        {
+            txtEmployeeNumber.Text = "";
+            txtLastName.Text = "";
+            txtFirstName.Text = "";
+            cmbRole.SelectedIndex = -1;
+            schedPreview.Rows.Clear();
+
+            EmployeeNumber = "";
+            LastName = "";
+            FirstName = "";
+            Role = "";
+            startScan.Visible = false;
         }
     }
 }
