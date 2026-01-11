@@ -86,6 +86,9 @@
     <Compile Include="EmployeeRegistrationForm.Designer.cs">
       <DependentUpon>EmployeeRegistrationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="enroll.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="HomeForm.cs">
       <SubType>Form</SubType>
     </Compile>

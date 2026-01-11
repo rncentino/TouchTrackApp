@@ -33,7 +33,7 @@ namespace TouchTrackApp
             public TimeSpan TimeOut { get; set; }
         }
 
-        private List<ScheduleItem> GetSchedulesForDatabase()
+        protected List<ScheduleItem> GetSchedulesForDatabase()
         {
             List<ScheduleItem> schedules = new List<ScheduleItem>();
 
