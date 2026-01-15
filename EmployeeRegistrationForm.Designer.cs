@@ -109,7 +109,7 @@
             // StatusText
             // 
             this.StatusText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.StatusText.Location = new System.Drawing.Point(448, 247);
+            this.StatusText.Location = new System.Drawing.Point(447, 246);
             this.StatusText.Multiline = true;
             this.StatusText.Name = "StatusText";
             this.StatusText.ReadOnly = true;
@@ -118,13 +118,13 @@
             // 
             // Prompt
             // 
-            this.Prompt.BackColor = System.Drawing.SystemColors.Control;
+            this.Prompt.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.Prompt.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Prompt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.Prompt.Location = new System.Drawing.Point(448, 228);
+            this.Prompt.Location = new System.Drawing.Point(12, 460);
             this.Prompt.Name = "Prompt";
             this.Prompt.ReadOnly = true;
-            this.Prompt.Size = new System.Drawing.Size(150, 13);
+            this.Prompt.Size = new System.Drawing.Size(260, 13);
             this.Prompt.TabIndex = 105;
             // 
             // startScan
@@ -136,7 +136,7 @@
             this.startScan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.startScan.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold);
             this.startScan.ForeColor = System.Drawing.Color.White;
-            this.startScan.Location = new System.Drawing.Point(448, 445);
+            this.startScan.Location = new System.Drawing.Point(448, 443);
             this.startScan.Name = "startScan";
             this.startScan.Size = new System.Drawing.Size(150, 38);
             this.startScan.TabIndex = 107;
@@ -147,7 +147,7 @@
             // Statuslabel
             // 
             this.Statuslabel.AutoSize = true;
-            this.Statuslabel.Location = new System.Drawing.Point(19, 458);
+            this.Statuslabel.Location = new System.Drawing.Point(448, 226);
             this.Statuslabel.Name = "Statuslabel";
             this.Statuslabel.Size = new System.Drawing.Size(56, 13);
             this.Statuslabel.TabIndex = 108;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DPFP;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,6 +15,9 @@ namespace TouchTrackApp
 
     public partial class EmployeeForm : Form
     {
+
+        protected DPFP.Template Template;
+
         public EmployeeForm()
         {
             InitializeComponent();
@@ -34,10 +38,29 @@ namespace TouchTrackApp
             }
         }
 
+        private void OnTemplate(DPFP.Template template)
+        {
+            this.Invoke(new Function(delegate ()
+            {
+                Template = template;
+                if (Template != null)
+                {
+                    MessageBox.Show("The fingerprint template is ready for fingerprint verification", "Fingerprint Enrollment");
+                }
+                else
+                {
+                    MessageBox.Show("The fingerprint template is not valid, repeat fingerprint scanning", "Fingerprint Enrollment");
+                }
+            }));
+        }
+
         private void registrationBtn_Click(object sender, EventArgs e)
         {
-            EmployeeRegistrationForm registerForm = new EmployeeRegistrationForm();
-            registerForm.ShowDialog();
+            //EmployeeRegistrationForm registerForm = new EmployeeRegistrationForm();
+            //registerForm.ShowDialog();
+            enroll Enfrm = new enroll();
+            Enfrm.OnTemplate += this.OnTemplate;
+            Enfrm.ShowDialog();
         }
     }
 }

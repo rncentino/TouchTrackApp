@@ -1,20 +1,26 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35818.85 d17.13
+VisualStudioVersion = 17.13.35818.85
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TouchTrackApp", "TouchTrackApp.csproj", "{ABFDB2E9-1329-42B0-962A-D77464E7411D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{ABFDB2E9-1329-42B0-962A-D77464E7411D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ABFDB2E9-1329-42B0-962A-D77464E7411D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABFDB2E9-1329-42B0-962A-D77464E7411D}.Debug|x86.ActiveCfg = Debug|x86
+		{ABFDB2E9-1329-42B0-962A-D77464E7411D}.Debug|x86.Build.0 = Debug|x86
 		{ABFDB2E9-1329-42B0-962A-D77464E7411D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABFDB2E9-1329-42B0-962A-D77464E7411D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABFDB2E9-1329-42B0-962A-D77464E7411D}.Release|x86.ActiveCfg = Release|x86
+		{ABFDB2E9-1329-42B0-962A-D77464E7411D}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
